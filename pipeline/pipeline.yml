@@ -1,0 +1,20 @@
+---
+#title           :rawInstanceCreate_global.yml
+#description     :This Ansible playbook  will create ECS from Image which we created
+#author          :Abhay Srivastava
+#date            :2019/01/07
+#version         :0.1
+#notes           :Install Vim and Emacs to use this playbook.
+#==============================================================================
+
+
+- hosts: localhost
+  tasks:
+
+  - name: Creating instance from image
+    shell: /bin/openstack --insecure server create --flavor t2.micro --image {{ image_name }} \
+             --key-name mykey-$instance_name --nic net-id=1fd7a904-2367-4a43-ae49-1351588387d6 \
+             --security-group default {{ instance_name }}
+
+  - name: Sleeping for 30 seconds
+    shell: sleep 30
