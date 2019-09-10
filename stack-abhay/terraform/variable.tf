@@ -3,14 +3,11 @@ default = ""
   description = "Provide aws region"
 }
 variable "key_name" {
-default = ""
-}
-variable "vpc-id" {
-default = ""
+default = "example-abhay-key"
 }
 variable "access_key" {
-default = ""
+default = "xswdefdefeewfwefwefwewefwef"
 }
 variable "secret_key" {
-default = ""
+default = "dwd3333333333"
 }
