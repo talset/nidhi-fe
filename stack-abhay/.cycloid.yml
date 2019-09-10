@@ -1,10 +1,9 @@
 # Configuration of the CI pipeline
 name: 'Abhay stack'
-canonical: 'abhay-lambda'
-description: 'Demo stack which create an AWS lambda with terraform'
+canonical: 'abhay-stack'
+description: 'Demo stack which will deploy ec2 on aws'
 keywords:
   - 'aws'
-  - 'lambda'
   - 'demo'
 technologies:
   - technology: Aws Lambda
