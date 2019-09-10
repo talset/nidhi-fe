@@ -19,6 +19,6 @@ config:
     variables:
       path: 'pipeline/variables.sample.yml'
   terraform:
-    example.tf.sample:
+    example:
       path: 'terraform/example.tf.sample'
       destination: '($ project $)/terraform/($ environment $)/example.tf'
