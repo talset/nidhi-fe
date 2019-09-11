@@ -6,19 +6,19 @@
 
 #. aws_access_key (required): ((aws.access_key))
 #+ Amazon AWS access key for Terraform. See value format [here](https://docs.cycloid.io/advanced-guide/integrate-and-use-cycloid-credentials-manager.html#vault-in-the-pipeline)
-aws_access_key: ((aws.access_key))
+aws_access_key: ((aws_abhay_aws.access_key))
 
 #. aws_secret_key (required): ((aws.secret_key))
 #+ Amazon AWS secret key for Terraform. See value format [here](https://docs.cycloid.io/advanced-guide/integrate-and-use-cycloid-credentials-manager.html#vault-in-the-pipeline)
-aws_secret_key: ((aws.secret_key))
+aws_secret_key: ((aws_abhay_aws.secret_key))
 
 #. aws_default_region (required): eu-west-1
 #+ Amazon AWS region to use for Terraform.
-aws_default_region: eu-west-1
+aws_default_region: us-east-2
 
 #. terraform_storage_bucket_name (required): ($ organization_canonical $)-terraform-remote-state
 #+ AWS S3 bucket name to store terraform remote state file.
-terraform_storage_bucket_name: ($ organization_canonical $)-terraform-remote-state
+terraform_storage_bucket_name: cycloid-abhay
 
 #
 # Repos
@@ -26,15 +26,15 @@ terraform_storage_bucket_name: ($ organization_canonical $)-terraform-remote-sta
 
 #. config_git_repository (required): git@github.com:MyUser/config-magento.git
 #+ Git repository URL containing the config of the stack.
-config_git_repository: git@github.com:MyUser/config-magento.git
+config_git_repository: https://github.com/abhaysrivastava-orange/nidhi-fe/tree/stacks
 
 #. config_git_branch (required): master
 #+ Branch of the config Git repository.
-config_git_branch: master
+config_git_branch: stacks
 
 #. config_git_private_key (required): ((git_config.ssh_key))
 #+ SSH key pair to fetch the config Git repository.
-config_git_private_key: ((git_config.ssh_key))
+config_git_private_key: ((git_abhay_git_ssh.ssh_key))
 
 #
 # Default variables that shouldn't be changed except if needed
