@@ -1,6 +1,6 @@
 # YAML anchors
 shared:
-
+​
   # Task : sync and merge with rsync 2 rep. Used to merge stack and config
   - &merge-stack-and-config
     platform: linux
@@ -14,7 +14,7 @@ shared:
     outputs:
     - name: merged-stack
       path: "merged-stack"
-
+​
 groups:
 - name: overview
   jobs:
@@ -23,14 +23,14 @@ groups:
 - name: destroy
   jobs:
   - terraform-destroy
-
+​
 resource_types:
 - name: terraform
   type: docker-image
   source:
     repository: ljfranklin/terraform-resource
     tag: '0.12.6'
-
+​
 resources:
 - name: tfstate
   type: terraform
@@ -52,16 +52,16 @@ resources:
       AWS_ACCESS_KEY_ID: ((aws_access_key))
       AWS_DEFAULT_REGION: ((aws_default_region))
       AWS_SECRET_ACCESS_KEY: ((aws_secret_key))
-
+​
 # The Terraform stack (will be merged with the config)
 - name: git_stack-terraform
   type: git
   source:
-    uri: https://github.com/cycloid-community-catalog/stack-magento
+    uri: https://github.com/abhaysrivastava-orange/nidhi-fe
     branch: ((stack_git_branch))
     paths:
-      - terraform/*
-
+      - stack-abhay/terraform/*
+​
 # The Terraform config (will be merged with the stack)
 - name: git_config-terraform
   type: git
@@ -71,7 +71,7 @@ resources:
     private_key: ((config_git_private_key))
     paths:
       - ((config_terraform_path))/*
-
+​
 jobs:
   - name: terraform-plan
     max_in_flight: 1
@@ -82,7 +82,7 @@ jobs:
           trigger: true
         - get: git_config-terraform
           trigger: true
-
+​
         - task: merge-stack-and-config
           config:
             <<: *merge-stack-and-config
@@ -93,13 +93,13 @@ jobs:
               path: "stack"
           params:
             CONFIG_PATH: ((config_terraform_path))
-            STACK_PATH: terraform
-
+            STACK_PATH: stack-abhay/terraform
+​
         - put: tfstate
           params:
             plan_only: true
             terraform_source: merged-stack/
-
+​
   - name: terraform-apply
     build_logs_to_retain: 10
     plan:
@@ -117,7 +117,7 @@ jobs:
           trigger: false
           passed:
             - terraform-plan
-
+​
         - task: merge-stack-and-config
           config:
             <<: *merge-stack-and-config
@@ -128,13 +128,13 @@ jobs:
               path: "stack"
           params:
             CONFIG_PATH: ((config_terraform_path))
-            STACK_PATH: terraform
-
+            STACK_PATH: stack-abhay/terraform
+​
         - put: tfstate
           params:
             plan_run: true
             terraform_source: merged-stack/
-
+​
   - name: terraform-destroy
     max_in_flight: 1
     build_logs_to_retain: 10
@@ -154,8 +154,8 @@ jobs:
                 path: "stack"
             params:
               CONFIG_PATH: ((config_terraform_path))
-              STACK_PATH: terraform
-
+              STACK_PATH: stack-abhay/terraform
+​
           - put: tfstate
             params:
               action: destroy
